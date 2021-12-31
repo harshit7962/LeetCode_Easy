@@ -1,17 +1,25 @@
 class Solution {
 public:
-    int findDuplicate(vector<int>& arr) {
-        int fast=0, slow=0;
-        do {
-            slow = arr[slow];
-            fast = arr[arr[fast]];
-        } while(fast!=slow);
-        
-        slow = 0;
-        while(slow!=fast) {
-            slow = arr[slow];
-            fast = arr[fast];
+    int removeElement(vector<int>& nums, int val) {
+        if(nums.size()==0) {
+            return 0;
         }
-        return fast;
+        int temp=nums.size()-1, k=0;
+        while(nums[temp]==val) {
+            temp--;
+            if(temp<0) {
+                return k;
+            }
+        }
+        for(int i=0;i<=temp;i++) {
+            if(nums[i]==val) {
+                nums[i] = nums[temp--];
+            }
+            k++;
+            while(val==nums[temp]) {
+                temp--;
+            }
+        }
+        return k;
     }
 };
